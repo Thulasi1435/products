@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Mobile Store</title>
+     <style>
+     
+ 
+         body {
+             font-family: 'Arial', sans-serif;
+             background: linear-gradient(to right, #96cb11, #25fcfc); /* Beautiful gradient background */
+             color: #ffffff;
+             margin: 0;
+             padding: 0;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             height:120vh;
+             align-self: center;
+         }
+ 
+         h1 {
+             color: #fff;
+             font-size: 3rem;
+             margin-bottom: 30px;
+             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+         }
+ 
+         .container {
+             width: 90%;
+             max-width: 1200px;
+             display: grid;
+             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+             gap: 20px;
+             padding: 20px;
+         }
+ 
+         .mobile-card {
+             background: #fff;
+             border-radius: 10px;
+             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+             overflow: hidden;
+             display: flex;
+             flex-direction: column;
+             text-align: center;
+             padding: 20px;
+             transition: transform 0.3s ease, box-shadow 0.3s ease;
+         }
+ 
+         .mobile-card:hover {
+             transform: translateY(-10px);
+             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+         }
+ 
+         .mobile-card img {
+             width: 80%;
+             height: 100px;
+             object-fit: cover;
+             border-radius: 10px;
+             margin-bottom: 15px;
+         }
+ 
+         .mobile-details {
+             font-size: 16px;
+             color: #333;
+         }
+ 
+         .mobile-details p {
+             margin: 5px 0;
+         }
+ 
+         .mobile-details p strong {
+             color: #fc8625;
+         }
+ 
+         @media (max-width: 786px) {
+             h1 {
+                 font-size: 2.5rem;
+             }
+ 
+             .mobile-card {
+                 padding: 15px;
+             }
+         }
+    
+    </style>
+ </head>
+ <body>
+ 
+     <h1>Mobile Store</h1>
+     <div class="container" id="mobileList"></div>
+ 
+     <script>
+         async function fetchMobiles() {
+             const response = await fetch('data.json'); // Fetch JSON data
+             const data = await response.json();
+ 
+             const container = document.getElementById('mobileList');
+             container.innerHTML = "";
+ 
+             data.mobiles.forEach(mobile => {
+                 const mobileCard = document.createElement('div');
+                 mobileCard.classList.add('mobile-card');
+                 mobileCard.innerHTML = `
+                     <img src="${mobile.image}" alt="${mobile.name}">
+                     <div class="mobile-details">
+                         <p><strong>Brand:</strong> ${mobile.brand}</p>
+                         <p><strong>Model:</strong> ${mobile.name}</p>
+                         <p><strong>Price:</strong> ${mobile.price}</p>
+                         <p><strong>Rating:</strong> ${mobile.rating}</p>
+                         <p><strong>RAM:</strong> ${mobile.ram}</p>
+                         <p><strong>Storage:</strong> ${mobile.storage}</p>
+                         <p><strong>Camera:</strong> ${mobile.camera}</p>
+                         <p><strong>Battery:</strong> ${mobile.battery}</p>
+                         <p><strong>Display:</strong> ${mobile.display}</p>
+                     </div>
+                 `;
+                 container.appendChild(mobileCard);
+             });
+         }
+ 
+         fetchMobiles();
+     </script>
+ 
+ 
+ </body>
+ </html>
